@@ -27,9 +27,9 @@ jobs:
     - name: 🐳 Tag & Push Backend image
       run: |
         docker tag todo101-todo-backend neon0702/todo-backend:latest
-        docker push nunthapop/todo-backend:latest
+        docker push neon0702/todo-backend:latest
     
     - name: 🐳 Tag & Push Frontend image
       run: |
         docker tag todo101-todo-frontend neon0702/todo-frontend:latest
-        docker push nunthapop/todo-frontend:latest
+        docker push neon0702/todo-frontend:latest
