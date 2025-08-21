@@ -1,0 +1,27 @@
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - C:\Users\DELL\Desktop\Todo101\data:/data/db
+
+  todo-backend:
+    build:
+      context: ./Backend    # match folder name exactly
+      dockerfile: Dockerfile.dockerfile
+    ports:
+      - "15000:15000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todos
+    depends_on:
+      - mongo
+  
+  todo-frontend:
+    build:
+      context: ./Frontend   # match folder name exactly
+      dockerfile: Dockerfile.dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - todo-backend

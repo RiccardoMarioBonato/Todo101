@@ -1,0 +1,35 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: 🔑 Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: neon0702
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+    
+    - name: ⚒️ Build and tag Docker images
+      run: |
+        docker compose -f docker-compose.yml build
+
+    - name: 🐳 Tag & Push Backend image
+      run: |
+        docker tag todo101-todo-backend neon0702/todo-backend:latest
+        docker push nunthapop/todo-backend:latest
+    
+    - name: 🐳 Tag & Push Frontend image
+      run: |
+        docker tag todo101-todo-frontend neon0702/todo-frontend:latest
+        docker push nunthapop/todo-frontend:latest
